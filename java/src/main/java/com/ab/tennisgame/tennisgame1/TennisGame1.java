@@ -1,4 +1,6 @@
-package com.ab.tennisgame;
+package com.ab.tennisgame.tennisgame1;
+
+import com.ab.tennisgame.TennisGame;
 
 public class TennisGame1 implements TennisGame {
     
