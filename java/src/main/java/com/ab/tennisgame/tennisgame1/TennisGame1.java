@@ -23,24 +23,14 @@ public class TennisGame1 implements TennisGame {
 
     public String getScore() {
         String score = "";
-        int tempScore=0;
+        int tempScore;
         if (player1.getScore()==player2.getScore())
         {
-            switch (player1.getScore())
-            {
-                case 0:
-                        score = "Love-All";
-                    break;
-                case 1:
-                        score = "Fifteen-All";
-                    break;
-                case 2:
-                        score = "Thirty-All";
-                    break;
-                default:
-                        score = "Deuce";
-                    break;
-
+            int currentScore = player1.getScore();
+            if(currentScore >= 3){
+                score = "Deuce";
+            } else {
+                score = ScoreDescription.values()[currentScore].toString() + "-All";
             }
         }
         else if (player1.getScore()>=4 || player2.getScore()>=4)
