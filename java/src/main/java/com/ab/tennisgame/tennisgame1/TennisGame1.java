@@ -22,48 +22,41 @@ public class TennisGame1 implements TennisGame {
     }
 
     public String getScore() {
-        String score = "";
-        int tempScore;
-        if (player1.getScore()==player2.getScore())
-        {
-            int currentScore = player1.getScore();
-            if(currentScore >= 3){
-                score = "Deuce";
-            } else {
-                score = ScoreDescription.values()[currentScore].toString() + "-All";
-            }
+        if (player1.getScore()>=4 || player2.getScore()>=4 || player1.getScore() == player2.getScore()) {
+            int scoreDifference = player1.getScore()-player2.getScore();
+            return getOutputForScoreDifference(scoreDifference);
         }
-        else if (player1.getScore()>=4 || player2.getScore()>=4)
-        {
-            int minusResult = player1.getScore()-player2.getScore();
-            if (minusResult==1) score ="Advantage player1";
-            else if (minusResult ==-1) score ="Advantage player2";
-            else if (minusResult>=2) score = "Win for player1";
-            else score ="Win for player2";
-        }
-        else
-        {
-            for (int i=1; i<3; i++)
-            {
-                if (i==1) tempScore = player1.getScore();
-                else { score+="-"; tempScore = player2.getScore();}
-                switch(tempScore)
-                {
-                    case 0:
-                        score+="Love";
-                        break;
-                    case 1:
-                        score+="Fifteen";
-                        break;
-                    case 2:
-                        score+="Thirty";
-                        break;
-                    case 3:
-                        score+="Forty";
-                        break;
-                }
-            }
+        return scoreDescription(player1.getScore()) + "-" + scoreDescription(player2.getScore());
+    }
+
+    private String getOutputForScoreDifference(int scoreDifference) {
+        String score;
+        if (scoreDifference ==1) {
+            score ="Advantage player1";
+        } else if (scoreDifference ==-1) {
+            score ="Advantage player2";
+        } else if (scoreDifference == 0){
+            score = getOutputForEqualScore();
+        } else if (scoreDifference >=2) {
+            score = "Win for player1";
+        } else {
+            score ="Win for player2";
         }
         return score;
+    }
+
+    private String getOutputForEqualScore() {
+        String score;
+        int currentScore = player1.getScore();
+        if(currentScore >= 3){
+            score = "Deuce";
+        } else {
+            score = scoreDescription(currentScore) + "-All";
+        }
+        return score;
+    }
+
+    private static String scoreDescription(int currentScore) {
+        return ScoreDescription.values()[currentScore].toString();
     }
 }
