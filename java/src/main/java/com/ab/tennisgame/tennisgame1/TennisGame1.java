@@ -12,10 +12,12 @@ public class TennisGame1 implements TennisGame {
     }
 
     public void wonPoint(String playerName) {
-        switch (playerName) {
-            case "player1" -> player1.addScore();
-            case "player2" -> player2.addScore();
-            default -> throw new IllegalArgumentException("Invalid player name");
+        if (playerName.equals(player1.getName())){
+            player1.addScore();
+        } else if (playerName.equals(player2.getName())) {
+            player2.addScore();
+        } else {
+            throw new IllegalArgumentException("Invalid player name");
         }
     }
 
@@ -38,7 +40,7 @@ public class TennisGame1 implements TennisGame {
                 default:
                         score = "Deuce";
                     break;
-                
+
             }
         }
         else if (player1.getScore()>=4 || player2.getScore()>=4)
